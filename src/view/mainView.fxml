@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="1006.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.mainViewController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Label fx:id="titleLabel" layoutX="8.0" layoutY="6.0" text="Study Planner">
+               <font>
+                  <Font name="Monospaced Regular" size="35.0" />
+               </font>
+            </Label>
+            <Button fx:id="createButton" layoutX="41.0" layoutY="68.0" mnemonicParsing="false" onAction="#createEntry" text="New Assignment">
+               <font>
+                  <Font name="Monospaced Regular" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteButton" layoutX="21.0" layoutY="144.0" mnemonicParsing="false" onAction="#deleteEntry" text="Delete Assignment">
+               <font>
+                  <Font name="Monospaced Regular" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="updateButton" layoutX="21.0" layoutY="221.0" mnemonicParsing="false" onAction="#updateEntry" text="Update Assignment">
+               <font>
+                  <Font name="Monospaced Regular" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="showDetailsInPlaceButton" layoutX="44.0" layoutY="294.0" mnemonicParsing="false" onAction="#showDetailsInPlace" text="Detailed Info">
+               <font>
+                  <Font name="Monospaced Regular" size="22.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="392.0">
+         <children>
+            <Label fx:id="searchLabel" layoutX="26.0" layoutY="14.0" text="Search Classes:">
+               <font>
+                  <Font name="Monospaced Regular" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchTextField" layoutX="216.0" layoutY="14.0" prefHeight="25.0" prefWidth="303.0" text="e.g. Math" />
+            <Button fx:id="searchAdvancedButton" layoutX="594.0" layoutY="12.0" mnemonicParsing="false" onAction="#searchAdvanced" text="SEARCH">
+               <font>
+                  <Font name="Monospaced Regular" size="15.0" />
+               </font>
+            </Button>
+            <TableView fx:id="staffTable" layoutX="17.0" layoutY="76.0" prefHeight="407.0" prefWidth="670.0">
+              <columns>
+                <TableColumn fx:id="staffLastname" prefWidth="118.0" text="LASTNAME" />
+                <TableColumn fx:id="staffId" prefWidth="84.0" text="ID" />
+                  <TableColumn fx:id="staffCourse" prefWidth="153.0" text="COURSE" />
+                  <TableColumn fx:id="staffAssignments" prefWidth="314.0" text="ASSIGNMENTS" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
