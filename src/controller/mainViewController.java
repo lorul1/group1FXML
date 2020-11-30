@@ -69,8 +69,12 @@ public class mainViewController implements Initializable {
     @FXML
     private TableColumn<Staff, String> staffAssignments;
     
-    private ObservableList<Staff> staffData;
+    @FXML
+    private Button sleepSuggestionsButton;
     
+    
+    private ObservableList<Staff> staffData;
+        
     public void setTableData(List<Staff> staffList) {
 
         // initialize the staffData variable
@@ -127,6 +131,60 @@ public class mainViewController implements Initializable {
         System.out.println("we are deleting this staff member: "+ s.toString());
         delete(s);
     }
+    
+    
+        @FXML
+    void updateEntry(ActionEvent event) throws IOException {
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+
+        
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sleepInfo2.fxml"));
+        // load the ui elements
+        Parent sleepInfo2 = loader.load();
+        // load the scene
+        Scene tableViewScene = new Scene(sleepInfo2);
+        //access the detailedControlled and call a method
+        SleepInfoController2 sleepControlled2 = loader.getController();
+        sleepControlled2.initData(selectedStaff);
+        // pass current scene to return
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        sleepControlled2.setPreviousScene(currentScene);
+        //This line gets the Stage information
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
+        
+        
+        
+        
+        //Scanner input = new Scanner(System.in);
+        
+        //// read input from command line
+       // System.out.println("Enter ID:");
+        //int id = input.nextInt();
+        
+      //  System.out.println("Enter Course:");
+      //  String course = input.next();
+      ////  
+      //  System.out.println("Enter Last Name:");
+      //  String lastname = input.next();
+        
+      //  System.out.println("Enter Assignments:");
+      //  String assignments = input.next();
+        
+        // create a staff instance
+     //   Staff staff = new Staff();
+        
+        // set properties
+      //  staff.setId(id);
+      //  staff.setCourse(course);
+      //  staff.setLastname(lastname);
+     //   staff.setAssignments(assignments);
+        // save this staff to database by calling Create operation        
+     //   update(staff);
+    //}
 
     @FXML
     void searchAdvanced(ActionEvent event) {
@@ -152,6 +210,30 @@ public class mainViewController implements Initializable {
         }
     }
 
+        
+    @FXML
+    void sleepSuggestions(ActionEvent event) throws IOException {
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+
+        
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sleepInfo.fxml"));
+        // load the ui elements
+        Parent sleepInfo = loader.load();
+        // load the scene
+        Scene tableViewScene = new Scene(sleepInfo);
+        //access the detailedControlled and call a method
+        SleepInfoController sleepControlled = loader.getController();
+        sleepControlled.initData(selectedStaff);
+        // pass current scene to return
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        sleepControlled.setPreviousScene(currentScene);
+        //This line gets the Stage information
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
+    
     @FXML
     void showDetailsInPlace(ActionEvent event) throws IOException {
         Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
@@ -183,34 +265,7 @@ public class mainViewController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    void updateEntry(ActionEvent event) {
-        Scanner input = new Scanner(System.in);
-        
-        // read input from command line
-        System.out.println("Enter ID:");
-        int id = input.nextInt();
-        
-        System.out.println("Enter Course:");
-        String course = input.next();
-        
-        System.out.println("Enter Last Name:");
-        String lastname = input.next();
-        
-        System.out.println("Enter Assignments:");
-        String assignments = input.next();
-        
-        // create a staff instance
-        Staff staff = new Staff();
-        
-        // set properties
-        staff.setId(id);
-        staff.setCourse(course);
-        staff.setLastname(lastname);
-        staff.setAssignments(assignments);
-        // save this staff to database by calling Create operation        
-        update(staff);
-    }
+
     
     public void create(Staff staff) {
         try {

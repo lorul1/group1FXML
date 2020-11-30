@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="1006.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.mainViewController">
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="1186.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainViewController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -39,7 +39,7 @@
                </font>
             </Button>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="392.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="731.0">
          <children>
             <Label fx:id="searchLabel" layoutX="26.0" layoutY="14.0" text="Search Classes:">
                <font>
@@ -60,6 +60,11 @@
                   <TableColumn fx:id="staffAssignments" prefWidth="314.0" text="ASSIGNMENTS" />
               </columns>
             </TableView>
+            <Button fx:id="sleepSuggestionsButton" layoutX="513.0" layoutY="500.0" mnemonicParsing="false" onAction="#sleepSuggestions" text="Sleep Suggestions">
+               <font>
+                  <Font name="Monospaced Regular" size="15.0" />
+               </font>
+            </Button>
          </children></AnchorPane>
   </items>
 </SplitPane>
