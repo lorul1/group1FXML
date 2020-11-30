@@ -132,6 +132,7 @@ public class mainViewController implements Initializable {
         System.out.println("Enter Assignments:");
         String assignments = input.next();
         
+        
         // create a staff instance
         Staff staff = new Staff();
         
