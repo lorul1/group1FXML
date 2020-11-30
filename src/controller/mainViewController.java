@@ -91,7 +91,32 @@ public class mainViewController implements Initializable {
     }
 
     @FXML
-    void createEntry(ActionEvent event) {
+    void createEntry(ActionEvent event) throws IOException {
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+
+        
+        //  ---------------------------------- This block will load the enter info window (also add the part that says throws excption above) ----------------------------------
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sleepInfo2.fxml"));
+        // load the ui elements
+        Parent sleepInfo2 = loader.load();
+        // load the scene
+        Scene tableViewScene = new Scene(sleepInfo2);
+        //access the detailedControlled and call a method
+        SleepInfoController2 sleepControlled2 = loader.getController();
+        sleepControlled2.initData(selectedStaff);
+        // pass current scene to return
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        sleepControlled2.setPreviousScene(currentScene);
+        //This line gets the Stage information
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.setScene(tableViewScene);
+        stage.show();
+        //  ---------------------------------- This is the end of the block that will load the enter info window ----------------------------------
+        
+        
+        
+        
+        
         Scanner input = new Scanner(System.in);
         
         // read input from command line
@@ -120,7 +145,30 @@ public class mainViewController implements Initializable {
     }
 
     @FXML
-    void deleteEntry(ActionEvent event) {
+    void deleteEntry(ActionEvent event) throws IOException {
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+
+        
+        //  ---------------------------------- This block will load the enter info window (also add the part that says throws excption above) ----------------------------------
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sleepInfo2.fxml"));
+        // load the ui elements
+        Parent sleepInfo2 = loader.load();
+        // load the scene
+        Scene tableViewScene = new Scene(sleepInfo2);
+        //access the detailedControlled and call a method
+        SleepInfoController2 sleepControlled2 = loader.getController();
+        sleepControlled2.initData(selectedStaff);
+        // pass current scene to return
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        sleepControlled2.setPreviousScene(currentScene);
+        //This line gets the Stage information
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.setScene(tableViewScene);
+        stage.show();
+        //  ---------------------------------- This is the end of the block that will load the enter info window ----------------------------------
+        
+        
+        
         Scanner input = new Scanner(System.in);
         
          // read input from command line
@@ -138,7 +186,7 @@ public class mainViewController implements Initializable {
         Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
 
         
-        // fxml loader
+        //  ---------------------------------- This block will load the enter info window (also add the part that says throws excption above) ----------------------------------
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sleepInfo2.fxml"));
         // load the ui elements
         Parent sleepInfo2 = loader.load();
@@ -154,37 +202,37 @@ public class mainViewController implements Initializable {
         Stage stage = (Stage) currentScene.getWindow();
         stage.setScene(tableViewScene);
         stage.show();
+        //  ---------------------------------- This is the end of the block that will load the enter info window ----------------------------------
+    
+
+        
+        Scanner input = new Scanner(System.in);
+        
+        // read input from command line
+      System.out.println("Enter ID:");
+       int id = input.nextInt();
+       
+       System.out.println("Enter Course:");
+       String course = input.next();
+      ////  
+       System.out.println("Enter Last Name:");
+       String lastname = input.next();
+        
+        System.out.println("Enter Assignments:");
+       String assignments = input.next();
+       
+        // create a staff instance
+        Staff staff = new Staff();
+       
+        // set properties
+       staff.setId(id);
+       staff.setCourse(course);
+       staff.setLastname(lastname);
+       staff.setAssignments(assignments);
+      //  save this staff to database by calling Create operation        
+        update(staff);
     }
         
-        
-        
-        
-        //Scanner input = new Scanner(System.in);
-        
-        //// read input from command line
-       // System.out.println("Enter ID:");
-        //int id = input.nextInt();
-        
-      //  System.out.println("Enter Course:");
-      //  String course = input.next();
-      ////  
-      //  System.out.println("Enter Last Name:");
-      //  String lastname = input.next();
-        
-      //  System.out.println("Enter Assignments:");
-      //  String assignments = input.next();
-        
-        // create a staff instance
-     //   Staff staff = new Staff();
-        
-        // set properties
-      //  staff.setId(id);
-      //  staff.setCourse(course);
-      //  staff.setLastname(lastname);
-     //   staff.setAssignments(assignments);
-        // save this staff to database by calling Create operation        
-     //   update(staff);
-    //}
 
     @FXML
     void searchAdvanced(ActionEvent event) {

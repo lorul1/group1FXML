@@ -21,6 +21,8 @@ import model.Staff;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 /**
  * FXML Controller class
  *
@@ -33,10 +35,28 @@ public class SleepInfoController2 implements Initializable {
 
     @FXML
     private URL location;
+    
 
+    @FXML
+    private Text textChange;
 
+    @FXML
+    private TextField enterIdField;
 
+    @FXML
+    private TextField enterNameField;
 
+    @FXML
+    private TextField enterCourseField;
+
+    @FXML
+    private TextField enterAssignmentsField;
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Button enterButton;
 
     @FXML
     void backToMain(ActionEvent event) {
