@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,9 +21,11 @@ import javafx.stage.Stage;
 import model.Staff;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javax.persistence.EntityManager;
 /**
  * FXML Controller class
  *
@@ -56,6 +59,9 @@ public class SleepInfoController2 implements Initializable {
     private Button backButton;
 
     @FXML
+    private Button updateButton;
+
+    @FXML
     private Button enterButton;
 
     @FXML
@@ -79,6 +85,49 @@ public class SleepInfoController2 implements Initializable {
 
     }
     
+        // ----------------------------------- below this line is stuff needed to make add when the enter button is pressed --------------------------------
+    @FXML
+    public void enter(ActionEvent event) {
+       Scanner input = new Scanner(System.in);
+        
+        // read input from command line
+        System.out.println("Enter ID:");
+        int id = Integer.parseInt(enterIdField.getText().toString());
+        
+        System.out.println("Enter Course:");
+       String course = enterCourseField.getText().toString();
+        
+        System.out.println("Enter Last Name:");
+       String lastname = enterNameField.getText().toString();
+        
+        System.out.println("Enter Assignments:");
+      String assignments = enterAssignmentsField.getText().toString();
+        
+        
+        // create a staff instance
+        Staff staff = new Staff();
+        
+        // set properties
+        staff.setId(id);
+        staff.setCourse(course);
+        staff.setLastname(lastname);
+        staff.setAssignments(assignments);
+        // save this staff to database by calling Create operation        
+        create(staff);
+    }
+    
+    
+    
+    @FXML
+    public void update(ActionEvent event) {
+                System.out.println("Hello, World!");
+    }
+ // -------------------------------------------------------------------------------------------------------------------------------------
+   
+    
+    
+    
+    
     public void initData(Staff model) {
         selectedModel = model;
         //staffIdLabel.setText(model.getId().toString());
@@ -99,5 +148,32 @@ public class SleepInfoController2 implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //backToMainButton.setDisable(true);
     }    
+    
+    
+    // ----------------------------------- below this line is stuff needed to make adding to the DB work --------------------------------
+    
+    public void create(Staff staff) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (staff.getId() != null) {
+                
+                // create student
+                manager.persist(staff);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                System.out.println(staff.toString() + " is created");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+        EntityManager manager;
+    
     
 }

@@ -91,7 +91,7 @@ public class mainViewController implements Initializable {
     }
 
     @FXML
-    void createEntry(ActionEvent event) throws IOException {
+    public void createEntry(ActionEvent event) throws IOException {
         Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
 
         
@@ -114,35 +114,43 @@ public class mainViewController implements Initializable {
         //  ---------------------------------- This is the end of the block that will load the enter info window ----------------------------------
         
         
+
+        System.out.println("taking you to next page");
+
+        
+        // ------ old code , the way the scanner used to work most of this has been moved to sleep 2 -------------
         
         
         
-        Scanner input = new Scanner(System.in);
+//        Scanner input = new Scanner(System.in);
+//        
+//        // read input from command line
+//        System.out.println("Enter ID:");
+//        int id = input.nextInt();
+//        
+//        System.out.println("Enter Course:");
+//        String course = input.next();
+//        
+//        System.out.println("Enter Last Name:");
+//        String lastname = input.next();
+//        
+//        System.out.println("Enter Assignments:");
+//        String assignments = input.next();
+//        
+//        
+//        // create a staff instance
+//        Staff staff = new Staff();
+//        
+//        // set properties
+//        staff.setId(id);
+//        staff.setCourse(course);
+//        staff.setLastname(lastname);
+//        staff.setAssignments(assignments);
+//        // save this staff to database by calling Create operation        
+//        create(staff);
         
-        // read input from command line
-        System.out.println("Enter ID:");
-        int id = input.nextInt();
-        
-        System.out.println("Enter Course:");
-        String course = input.next();
-        
-        System.out.println("Enter Last Name:");
-        String lastname = input.next();
-        
-        System.out.println("Enter Assignments:");
-        String assignments = input.next();
         
         
-        // create a staff instance
-        Staff staff = new Staff();
-        
-        // set properties
-        staff.setId(id);
-        staff.setCourse(course);
-        staff.setLastname(lastname);
-        staff.setAssignments(assignments);
-        // save this staff to database by calling Create operation        
-        create(staff);
     }
 
     @FXML
@@ -168,17 +176,21 @@ public class mainViewController implements Initializable {
         stage.show();
         //  ---------------------------------- This is the end of the block that will load the enter info window ----------------------------------
         
+               
         
+
+
+// ------ old code , the way the scanner used to work most of this has been moved to sleep 2 -------------
         
-        Scanner input = new Scanner(System.in);
-        
-         // read input from command line
-        System.out.println("Enter ID:");
-        int id = input.nextInt();
-        
-        Staff s = readById(id);
-        System.out.println("we are deleting this staff member: "+ s.toString());
-        delete(s);
+//        Scanner input = new Scanner(System.in);
+//        
+//         // read input from command line
+//        System.out.println("Enter ID:");
+//        int id = input.nextInt();
+//        
+//        Staff s = readById(id);
+//        System.out.println("we are deleting this staff member: "+ s.toString());
+//        delete(s);
     }
     
     
@@ -207,31 +219,35 @@ public class mainViewController implements Initializable {
     
 
         
-        Scanner input = new Scanner(System.in);
         
-        // read input from command line
-      System.out.println("Enter ID:");
-       int id = input.nextInt();
-       
-       System.out.println("Enter Course:");
-       String course = input.next();
-      ////  
-       System.out.println("Enter Last Name:");
-       String lastname = input.next();
         
-        System.out.println("Enter Assignments:");
-       String assignments = input.next();
-       
-        // create a staff instance
-        Staff staff = new Staff();
-       
-        // set properties
-       staff.setId(id);
-       staff.setCourse(course);
-       staff.setLastname(lastname);
-       staff.setAssignments(assignments);
-      //  save this staff to database by calling Create operation        
-        update(staff);
+        // ------ old code , the way the scanner used to work most of this has been moved to sleep 2 -------------
+        
+//        Scanner input = new Scanner(System.in);
+//        
+//        // read input from command line
+//      System.out.println("Enter ID:");
+//       int id = input.nextInt();
+//       
+//       System.out.println("Enter Course:");
+//       String course = input.next();
+//      ////  
+//       System.out.println("Enter Last Name:");
+//       String lastname = input.next();
+//        
+//        System.out.println("Enter Assignments:");
+//       String assignments = input.next();
+//       
+//        // create a staff instance
+//        Staff staff = new Staff();
+//       
+//        // set properties
+//       staff.setId(id);
+//       staff.setCourse(course);
+//       staff.setLastname(lastname);
+//       staff.setAssignments(assignments);
+//      //  save this staff to database by calling Create operation        
+//        update(staff);
     }
         
 
