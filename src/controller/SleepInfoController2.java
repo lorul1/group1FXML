@@ -1,36 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Staff;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javax.persistence.EntityManager;
-/**
- * FXML Controller class
- *
- * @author ljp5342
- */
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 public class SleepInfoController2 implements Initializable {
     
     @FXML
@@ -63,6 +49,18 @@ public class SleepInfoController2 implements Initializable {
 
     @FXML
     private Button enterButton;
+    
+     @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Label deleteIDLabel;
+
+    @FXML
+    private TextField deleteIDField;
+    
+    @FXML
+    private TextField enterOfficeHoursField;
 
     @FXML
     void backToMain(ActionEvent event) {
@@ -88,21 +86,16 @@ public class SleepInfoController2 implements Initializable {
         // ----------------------------------- below this line is stuff needed to make add when the enter button is pressed --------------------------------
     @FXML
     public void enter(ActionEvent event) {
-       Scanner input = new Scanner(System.in);
         
-        // read input from command line
-        System.out.println("Enter ID:");
-        int id = Integer.parseInt(enterIdField.getText().toString());
+      int id = Integer.parseInt(enterIdField.getText());
         
-        System.out.println("Enter Course:");
-       String course = enterCourseField.getText().toString();
+      String course = enterCourseField.getText();
         
-        System.out.println("Enter Last Name:");
-       String lastname = enterNameField.getText().toString();
+      String lastname = enterNameField.getText();
         
-        System.out.println("Enter Assignments:");
-      String assignments = enterAssignmentsField.getText().toString();
-        
+      String assignments = enterAssignmentsField.getText();
+      
+      String officehours = enterOfficeHoursField.getText();
         
         // create a staff instance
         Staff staff = new Staff();
@@ -112,46 +105,50 @@ public class SleepInfoController2 implements Initializable {
         staff.setCourse(course);
         staff.setLastname(lastname);
         staff.setAssignments(assignments);
+        staff.setOfficehours(officehours);
         // save this staff to database by calling Create operation        
         create(staff);
+        
+       
     }
     
-    
-    
     @FXML
-    public void update(ActionEvent event) {
-                System.out.println("Hello, World!");
+    void enterDelete(ActionEvent event) {
+        
+        int id = Integer.parseInt(deleteIDField.getText());
+        
+        Staff s = readById(id);
+        System.out.println("we are deleting this staff member: "+ s.toString());
+        delete(s);
+
+    }
+
+    @FXML
+    void enterUpdate(ActionEvent event) {
+      int id = Integer.parseInt(enterIdField.getText());
+        
+      String course = enterCourseField.getText();
+        
+      String lastname = enterNameField.getText();
+        
+      String assignments = enterAssignmentsField.getText();
+      
+      String officehours = enterOfficeHoursField.getText();
+       
+        // create a staff instance
+        Staff staff = new Staff();
+       
+        // set properties
+       staff.setId(id);
+       staff.setCourse(course);
+       staff.setLastname(lastname);
+       staff.setAssignments(assignments);
+       staff.setOfficehours(officehours);
+      //  save this staff to database by calling Create operation        
+        update(staff);
     }
  // -------------------------------------------------------------------------------------------------------------------------------------
    
-    
-    
-    
-    
-    public void initData(Staff model) {
-        selectedModel = model;
-        //staffIdLabel.setText(model.getId().toString());
-        //staffLastnameLabel.setText(model.getLastname());
-
-    //    try {
-            // path points to /resource/images/
-    //        String imagename = "/resource/images/" + model.getLastname() + ".png";
-    //        Image profile = new Image(getClass().getResourceAsStream(imagename));
-            //profileImage.setImage(profile);
-
-    //    } catch (Exception ex) {
-    //        System.out.println(ex.getMessage());
-    //    }
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //backToMainButton.setDisable(true);
-    }    
-    
-    
-    // ----------------------------------- below this line is stuff needed to make adding to the DB work --------------------------------
-    
     public void create(Staff staff) {
         try {
             // begin transaction
@@ -173,7 +170,71 @@ public class SleepInfoController2 implements Initializable {
         }
     }
     
-        EntityManager manager;
+    public void update(Staff model) {
+        try {
+
+            Staff existingStaff = manager.find(Staff.class, model.getId());
+
+            if (existingStaff != null) {
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                // update all atttributes
+                existingStaff.setCourse(model.getCourse());
+                existingStaff.setLastname(model.getLastname());
+                existingStaff.setAssignments(model.getAssignments());
+                existingStaff.setOfficehours(model.getOfficehours());
+                // end transaction
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+        public Staff readById(int id){
+        Query query = manager.createNamedQuery("Staff.findById");
+        
+        // setting query parameter
+        query.setParameter("id", id);
+        
+        // execute query
+        Staff staff = (Staff) query.getSingleResult();
+        if (staff != null) {
+            System.out.println(staff.getId() + " " + staff.getLastname()+ " " + staff.getCourse() + " " + staff.getAssignments() + " " + staff.getOfficehours());
+        }
+        
+        return staff;
+    }
+        
+    public void delete(Staff staff) {
+        try {
+            Staff existingStaff = manager.find(Staff.class, staff.getId());
+
+            // sanity check
+            if (existingStaff != null) {
+                
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                //remove student
+                manager.remove(existingStaff);
+                
+                // end transaction
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
+    public void initData(Staff model) {
+        selectedModel = model;
+    }
     
+    EntityManager manager;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        manager = (EntityManager) Persistence.createEntityManagerFactory("Group1FXMLPU").createEntityManager();
+    }    
 }
